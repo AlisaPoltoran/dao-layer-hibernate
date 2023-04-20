@@ -19,15 +19,9 @@ public class DataBaseRepository {
     private EntityManager entityManager;
 
     public ArrayList<Person> getPersonsByCity(String city) {
-        long cityId = switch (city) {
-            case "Moscow" -> 1L;
-            case "Saint-Petersburg" -> 2L;
-            case "Kazan" -> 3L;
-            default -> 0;
-        };
-
-        var query = entityManager.createNativeQuery("SELECT * from persons where city_of_living = :city", Person.class);
-        query.setParameter("city", cityId);
+        String nativeSqlQuery = "SELECT * FROM persons WHERE city_of_living IN (SELECT id FROM city WHERE name = :city)";
+        var query = entityManager.createNativeQuery(nativeSqlQuery, Person.class);
+        query.setParameter("city", city);
         @SuppressWarnings("unchecked")
         ArrayList<Person> personsList = (ArrayList<Person>) query.getResultList();
         System.out.println(personsList);
