@@ -9,15 +9,15 @@ import lombok.*;
 @Data
 @Entity
 @Builder
-@Table(name = "Persons")
+@Table(name = "customers")
 public class Person {
 
     @EmbeddedId
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @AttributeOverrides({
-            @AttributeOverride( name = "name", column = @Column(name = "name")),
-            @AttributeOverride( name = "surname", column = @Column(name = "surname")),
-            @AttributeOverride( name = "age", column = @Column(name = "age"))
+            @AttributeOverride(name = "name", column = @Column(name = "name")),
+            @AttributeOverride(name = "surname", column = @Column(name = "surname")),
+            @AttributeOverride(name = "age", column = @Column(name = "age"))
     })
     private PersonId personId;
     @Column(name = "phone_number", nullable = false)
