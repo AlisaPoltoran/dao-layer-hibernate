@@ -1,5 +1,6 @@
 package ru.netology.daolayerhibernate.service;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.netology.daolayerhibernate.entity.Person;
 import ru.netology.daolayerhibernate.entity.PersonId;
@@ -60,7 +61,8 @@ public class DataBaseService {
     }
 
     public List<Person> getPersonsByAgeLessThan(Integer age) {
-        return dataBaseRepository.findByPersonId_AgeLessThanOrderByPersonId_AgeAsc(age);
+        return dataBaseRepository.findByPersonId_AgeLessThanOrderByPersonId_AgeAsc(age,
+                Sort.by("personId.age").ascending());
     }
 
     public List<Person> getPersonsByNameAndSurname(String name, String surname) {
